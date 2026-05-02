@@ -341,7 +341,7 @@
 
         .promo-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 30px;
             margin-top: 40px;
             position: relative;
@@ -463,6 +463,19 @@
             font-size: 1.6rem;
             color: var(--primary);
             text-align: center;
+        }
+
+        .service-pricing {
+            font-weight: bold;
+            color: var(--secondary);
+            font-size: 0.95rem;
+            margin-bottom: 15px;
+            text-align: center;
+            background: #fcfaf8;
+            border: 1px dashed var(--secondary);
+            padding: 10px;
+            border-radius: 8px;
+            line-height: 1.8;
         }
 
         .service-desc {
@@ -798,9 +811,9 @@
         </div>
         <div class="hero-overlay"></div>
         <div class="hero-content js-parallax" data-speed="-0.3">
-            <h1 class="reveal">Find Your Inner Peace</h1>
-            <p class="reveal">Step into a sanctuary of tranquility at Eliss Spa. Experience the ultimate relaxation and professional care designed to rejuvenate your mind, body, and soul.</p>
-            <a href="#services" class="btn btn-primary reveal">Book Your Journey</a>
+            <h1 class="reveal">Relax Your Body,<br>Calm Your Mind</h1>
+            <p class="reveal">Step into a sanctuary of tranquility at Eliss Spa. Soothe your body and mind, and enjoy the quiet time with our professional treatments.</p>
+            <button id="Anywhere_button_iframe" class="anywhere-book-now-button btn btn-primary reveal" data-booking-url="https://elissspa.setmore.com" data-new-tab="false">Book Now</button>
         </div>
     </header>
 
@@ -828,7 +841,7 @@
             <h2 class="section-title" style="color: white;">Exclusive Offers</h2>
             <div class="promo-grid">
                 <div class="promo-card">
-                    <i class="fas fa-gift promo-icon"></i>
+                    <i class="fas fa-certificate promo-icon"></i>
                     <h3>Loyalty Rewards</h3>
                     <p>Your dedication to wellness deserves a reward. <br><strong>Enjoy 9 sessions and receive your 10th session absolutely FREE.</strong></p>
                 </div>
@@ -836,6 +849,11 @@
                     <i class="fas fa-ticket-alt promo-icon"></i>
                     <h3>Welcome Gift</h3>
                     <p>New to Eliss Spa? Experience our signature relaxation and receive a <br><strong>$10 Discount Coupon</strong> for your next visit.</p>
+                </div>
+                <div class="promo-card">
+                    <i class="fas fa-gift promo-icon"></i>
+                    <h3>Gift Cards Available</h3>
+                    <p>Give the gift of ultimate relaxation. <br><strong>Gift certificates are available for purchase in-store.</strong></p>
                 </div>
             </div>
         </div>
@@ -974,29 +992,28 @@
         // --- Data Configuration (Based on prompt constraints) ---
         const servicesData = [
             {
-                title: "Body Work",
-                desc: "A comprehensive full-body treatment designed to ease muscle tension, improve circulation, and induce profound relaxation. Perfect for alleviating everyday stress.",
+                title: "Herbal Oil & Hot Stone Massage",
+                prices: "30 Min - $50 &nbsp;|&nbsp; 60 Min - $70 &nbsp;|&nbsp; 90 Min - $100",
+                desc: "Relax your body and mind, soothe your emotions, and effectively relieve everyday stress and anxiety.",
                 images: [
                     "https://i.pinimg.com/1200x/dc/36/fe/dc36feaf9cc11bec29cc3de7834c539e.jpg",
                     "https://i.pinimg.com/736x/4c/2b/cb/4c2bcb39fbc7189277e8e505c2e1bc8f.jpg",
-                    "https://i.pinimg.com/736x/c0/e8/3f/c0e83fc3058518c785d6cfe1b15da601.jpg",
+                    "https://i.pinimg.com/736x/c0/e8/3f/c0e83fc3058518c785d6cfe1b15da601.jpg"
+                ]
+            },
+            {
+                title: "Rose Oil & Hot Stone Massage",
+                prices: "30 Min - $50 &nbsp;|&nbsp; 60 Min - $70 &nbsp;|&nbsp; 90 Min - $100",
+                desc: "Nourish and soften your skin while soothing your body and mind. Perfectly designed to brighten your overall complexion.",
+                images: [
                     "https://i.pinimg.com/736x/21/8f/4c/218f4cd988ca278667bd28ff54a577ff.jpg",
                     "https://i.pinimg.com/736x/86/47/ef/8647ef5b51553a8e57ca32e6b2ec74f0.jpg"
                 ]
             },
             {
-                title: "Foot Reflexology",
-                desc: "Targeted pressure point therapy on the feet that corresponds to different body organs. Excellent for those standing all day, helping to restore balance and energy.",
-                images: [
-                    "https://i.pinimg.com/1200x/6a/df/fe/6adffe5706bdce88dd2d2d0fc6875398.jpg",
-                    "https://i.pinimg.com/1200x/71/a4/b7/71a4b75a19fbadf33bc6dc340e91340c.jpg",
-                    "https://i.pinimg.com/1200x/2b/85/42/2b8542fd0d099c9771bb5b332d6f51a9.jpg",
-                    "https://i.pinimg.com/736x/76/48/7c/76487c07076e4b41fcce7c4ea35e2005.jpg"
-                ]
-            },
-            {
-                title: "Deep Tissue Massage",
-                desc: "Focuses on the deeper layers of muscle tissue. Ideal for chronic aches, stiffness, and aiding recovery from physical exertion. Firm pressure applied.",
+                title: "Lavender Oil & Hot Stone Massage",
+                prices: "30 Min - $50 &nbsp;|&nbsp; 60 Min - $70 &nbsp;|&nbsp; 90 Min - $100",
+                desc: "Calm your nerves and aid sleep. Relieve muscle aches, promote metabolism, and achieve profound full-body relaxation.",
                 images: [
                     "https://i.pinimg.com/736x/86/47/ef/8647ef5b51553a8e57ca32e6b2ec74f0.jpg",
                     "https://i.pinimg.com/736x/a4/c5/f0/a4c5f0fb2704f75aa94a247e18a4af14.jpg",
@@ -1005,14 +1022,14 @@
                 ]
             },
             {
-                title: "Couple Massage",
-                desc: "Share a relaxing experience with a loved one or friend in our dedicated couples suite. The perfect way to bond and unwind together.",
+                title: "Rose Foot Bath & Massage",
+                prices: "30 Min - $30 &nbsp;|&nbsp; 60 Min - $65",
+                desc: "Soothe your body and mind, calm your nerves, and deeply relax your feet while regulating your complexion.",
                 images: [
-                    "https://i.pinimg.com/736x/ac/a6/69/aca669d5a5fe654a32f0f6b3c5138275.jpg",
-                    "https://i.pinimg.com/736x/8d/88/02/8d88021e4d32ed8abd1452b7f48ce00b.jpg",
-                    "https://i.pinimg.com/736x/70/cb/60/70cb60cfa74373d9c0a2e39d478f489e.jpg",
-                    "https://i.pinimg.com/1200x/07/13/62/0713626b6e91eb53a1b7b60a3d0dfd8e.jpg",
-                    "https://i.pinimg.com/1200x/dc/19/10/dc1910a382684fb1ef96f192e94b3886.jpg"
+                    "https://i.pinimg.com/1200x/6a/df/fe/6adffe5706bdce88dd2d2d0fc6875398.jpg",
+                    "https://i.pinimg.com/1200x/71/a4/b7/71a4b75a19fbadf33bc6dc340e91340c.jpg",
+                    "https://i.pinimg.com/1200x/2b/85/42/2b8542fd0d099c9771bb5b332d6f51a9.jpg",
+                    "https://i.pinimg.com/736x/76/48/7c/76487c07076e4b41fcce7c4ea35e2005.jpg"
                 ]
             }
         ];
@@ -1096,8 +1113,9 @@
                         <div class="service-header">
                             <h3 class="service-title brand-font">${service.title}</h3>
                         </div>
+                        <div class="service-pricing">${service.prices}</div>
                         <p class="service-desc">${service.desc}</p>
-                        <a href="#contact" class="btn btn-outline" style="text-align:center; margin-top:auto;">Inquire</a>
+                        <button class="anywhere-book-now-button btn btn-outline" data-booking-url="https://elissspa.setmore.com" data-new-tab="false" style="text-align:center; margin-top:auto;">Book Now</button>
                     </div>
                 `;
                 grid.appendChild(card);
@@ -1243,5 +1261,8 @@
             });
         }
     </script>
+    
+    <!-- Setmore Booking Script -->
+    <script id="anywhere_book_now_script" type="text/javascript" src="https://assets.setmore.com/integration/book-now/live/v1/anywhere-book-now.js"></script>
 </body>
 </html>
