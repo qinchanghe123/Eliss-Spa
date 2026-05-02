@@ -486,93 +486,6 @@
             text-align: center;
         }
 
-        /* --- Testimonials Section --- */
-        #testimonials {
-            background: #EAE6DF;
-            overflow: hidden;
-            padding: 80px 0;
-        }
-
-        .marquee-wrapper {
-            display: flex;
-            flex-direction: column;
-            gap: 30px;
-            margin-top: 50px;
-        }
-
-        .marquee {
-            display: flex;
-            overflow: hidden;
-            user-select: none;
-            gap: 30px;
-        }
-
-        .marquee-content {
-            display: flex;
-            gap: 30px;
-            flex-shrink: 0;
-            min-width: 100%;
-        }
-
-        .scroll-left {
-            animation: scrollLeft 40s linear infinite;
-        }
-
-        .scroll-right {
-            animation: scrollRight 40s linear infinite;
-        }
-
-        .marquee:hover .marquee-content {
-            animation-play-state: paused;
-        }
-
-        @keyframes scrollLeft {
-            from { transform: translateX(0); }
-            to { transform: translateX(-100%); }
-        }
-
-        @keyframes scrollRight {
-            from { transform: translateX(-100%); }
-            to { transform: translateX(0); }
-        }
-
-        .review-card {
-            width: 350px;
-            padding: 30px;
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            flex-shrink: 0;
-            position: relative;
-        }
-
-        .review-card i.fa-quote-left {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            font-size: 2rem;
-            color: var(--bg-light);
-            opacity: 0.5;
-        }
-
-        .stars {
-            color: #FFD700;
-            margin-bottom: 15px;
-        }
-
-        .review-text {
-            font-style: italic;
-            margin-bottom: 15px;
-            color: #444;
-            font-size: 0.95rem;
-        }
-
-        .reviewer {
-            font-weight: bold;
-            font-family: 'Cinzel', serif;
-            color: var(--primary);
-        }
-
         /* --- FAQ Section --- */
         #faq {
             background: var(--bg-light);
@@ -796,7 +709,6 @@
             <li><a href="#about" class="light-mode">About</a></li>
             <li><a href="#promotions" class="light-mode">Promos</a></li>
             <li><a href="#services" class="light-mode">Services</a></li>
-            <li><a href="#testimonials" class="light-mode">Reviews</a></li>
             <li><a href="#contact" class="light-mode">Contact</a></li>
         </ul>
         <div class="mobile-menu-btn" id="mobileMenuBtn">
@@ -865,33 +777,6 @@
             <h2 class="section-title">Our Services</h2>
             <div class="services-grid" id="servicesGrid">
                 <!-- Service Cards injected by JS -->
-            </div>
-        </div>
-    </section>
-
-    <!-- Testimonials Section -->
-    <section id="testimonials" class="section-padding">
-        <div class="container reveal">
-            <h2 class="section-title">Client Experiences</h2>
-        </div>
-        <div class="marquee-wrapper reveal">
-            <!-- Row 1: Left Scroll -->
-            <div class="marquee">
-                <div class="marquee-content scroll-left" id="reviewRow1">
-                    <!-- Reviews injected by JS -->
-                </div>
-                <div class="marquee-content scroll-left" id="reviewRow1-clone" aria-hidden="true">
-                    <!-- Cloned Reviews -->
-                </div>
-            </div>
-            <!-- Row 2: Right Scroll -->
-            <div class="marquee">
-                <div class="marquee-content scroll-right" id="reviewRow2">
-                    <!-- Reviews injected by JS -->
-                </div>
-                <div class="marquee-content scroll-right" id="reviewRow2-clone" aria-hidden="true">
-                    <!-- Cloned Reviews -->
-                </div>
             </div>
         </div>
     </section>
@@ -1034,19 +919,6 @@
             }
         ];
 
-        const reviews = [
-            { name: "Sarah J.", text: "Absolutely amazing experience. The environment is so calming." },
-            { name: "Mike T.", text: "Best massage I've ever had. Highly recommend the deep tissue for back pain." },
-            { name: "Emily R.", text: "Clean, professional, and very relaxing. Will definitely be coming back." },
-            { name: "David & Lisa", text: "The couple's massage was a perfect anniversary treat. Thank you Eliss Spa!" },
-            { name: "John K.", text: "Very tranquil setting. The foot reflexology worked wonders for my tired feet." },
-            { name: "Amanda W.", text: "Top-notch service. The place is impeccably clean and serene." },
-            { name: "Chris B.", text: "A hidden gem in Evansville. Left feeling completely rejuvenated." },
-            { name: "Jessica M.", text: "Love the Buy 9 Get 1 Free deal! I'm a regular now. Great value." },
-            { name: "Robert L.", text: "The ambiance is perfect for unwinding after a long, stressful work week." },
-            { name: "Nancy P.", text: "Very accommodating and professional staff. Highly recommended to anyone!" }
-        ];
-
         const heroBgImages = [
             "https://i.pinimg.com/1200x/2b/85/42/2b8542fd0d099c9771bb5b332d6f51a9.jpg",
             "https://i.pinimg.com/1200x/dc/36/fe/dc36feaf9cc11bec29cc3de7834c539e.jpg",
@@ -1058,7 +930,6 @@
             document.getElementById('year').textContent = new Date().getFullYear();
             initHeroBackground();
             renderServices();
-            renderReviews();
             initScrollEffects();
             initAccordion();
             initMobileMenu();
@@ -1149,39 +1020,6 @@
             indicators.forEach((ind, idx) => {
                 ind.addEventListener('click', () => goToSlide(idx));
             });
-        }
-
-        // --- Render Testimonials (Reverse Marquee) ---
-        function renderReviews() {
-            const row1 = document.getElementById('reviewRow1');
-            const row2 = document.getElementById('reviewRow2');
-            
-            const createReviewHTML = (review) => `
-                <div class="review-card">
-                    <i class="fas fa-quote-left"></i>
-                    <div class="stars">
-                        ${'<i class="fas fa-star"></i>'.repeat(5)}
-                    </div>
-                    <p class="review-text">"${review.text}"</p>
-                    <p class="reviewer">- ${review.name}</p>
-                </div>
-            `;
-
-            let html1 = '';
-            let html2 = '';
-            
-            // Split reviews into two rows
-            reviews.forEach((r, i) => {
-                if(i % 2 === 0) html1 += createReviewHTML(r);
-                else html2 += createReviewHTML(r);
-            });
-
-            row1.innerHTML = html1;
-            row2.innerHTML = html2;
-
-            // Clone for seamless scroll
-            document.getElementById('reviewRow1-clone').innerHTML = html1;
-            document.getElementById('reviewRow2-clone').innerHTML = html2;
         }
 
         // --- Scroll Effects (Nav, Reveal, Parallax) ---
